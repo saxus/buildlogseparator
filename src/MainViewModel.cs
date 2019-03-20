@@ -124,6 +124,13 @@ Alt + F4 - Exit";
             {
                 Content = ContentSorter.Sort(Content);
             });
+
+            var args = Environment.GetCommandLineArgs();
+
+            if (args.Length > 1)
+            {
+                OpenLog(args[1]);
+            }
         }
 
         public void OpenLog(string filename)
@@ -151,6 +158,7 @@ Alt + F4 - Exit";
             if (lines != null)
             {
                 this.Regions = LogParser.ExplodeToRegions(lines);
+                this.SelectedRegion = this.Regions.FirstOrDefault();
             }
         }
 
