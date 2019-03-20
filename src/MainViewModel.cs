@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -109,7 +110,7 @@ Alt + F4 - Exit";
             OpenLogCommand = new DelegateCommand((param) =>
             {
                 var ofd = new Microsoft.Win32.OpenFileDialog();
-                ofd.Filter = "Logfiles|*.txt;*.log|All files|*.*";
+                ofd.Filter = "Supported files|*.txt;*.log;*.zip|Logfiles|*.txt;*.log|Zip files|*.zip|All files|*.*";
 
                 var res = ofd.ShowDialog();
 
@@ -129,9 +130,28 @@ Alt + F4 - Exit";
         {
             this.Filename = filename;
 
-            var lines = File.ReadAllLines(filename);
+            string[] lines = null;
 
-            this.Regions = LogParser.ExplodeToRegions(lines);
+
+            if (filename.ToLower().EndsWith(".zip"))
+            {
+                using (var archive = ZipFile.OpenRead(filename))
+                {
+                    if (!ZipEntrySelectorWindow.TryGetContent(archive, out lines))
+                    {
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                lines = File.ReadAllLines(filename);
+            }
+
+            if (lines != null)
+            {
+                this.Regions = LogParser.ExplodeToRegions(lines);
+            }
         }
 
 
