@@ -17,9 +17,12 @@ namespace BuildLogSeparator
                 {
                     _selectedEntry = value;
                     RaisePropertyChanged(nameof(SelectedEntry));
+                    RaisePropertyChanged(nameof(CanOpen));
                 }
             }
         }
+
+        public bool CanOpen => SelectedEntry != null;
 
         public IEnumerable<ZipArchiveEntry> Entries { get; }
 

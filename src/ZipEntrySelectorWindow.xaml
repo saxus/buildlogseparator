@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BuildLogSeparator"
         mc:Ignorable="d"
-        Title="ZipEntrySelectorWindow" Height="450" Width="800">
+        Title="Open zip file..." Height="450" Width="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <ListBox Grid.Row="0" Margin="3" ItemsSource="{Binding Entries}" SelectedItem="{Binding SelectedEntry}"></ListBox>
         <StackPanel Grid.Row="1" Margin="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Padding="10,3" Click="Button_Click">Open</Button>
+            <Button Padding="10,3" IsEnabled="{Binding CanOpen}" Click="Button_Click">Open</Button>
             <Button Padding="10,3" IsCancel="True">Cancel</Button>
         </StackPanel>
     </Grid>
