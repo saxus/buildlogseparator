@@ -94,11 +94,17 @@ namespace BuildLogSeparator
         }
 
         public ICommand OpenLogCommand { get; }
+        public ICommand SortByTimestampCommand { get; }
 
         public MainViewModel()
         {
+            var nl = Environment.NewLine;
+
             Filename = "Build log separator";
-            Content = "Ctrl + O - Open file" + Environment.NewLine + "Alt + F4 - Exit";
+            Content = @"Ctrl + O - Open file
+Ctrl + S - Sort by secondary timestamp
+Alt + F4 - Exit";
+
 
             OpenLogCommand = new DelegateCommand((param) =>
             {
@@ -111,6 +117,11 @@ namespace BuildLogSeparator
                 {
                     OpenLog(ofd.FileName);
                 }
+            });
+
+            SortByTimestampCommand = new DelegateCommand((param) =>
+            {
+                Content = ContentSorter.Sort(Content);
             });
         }
 
