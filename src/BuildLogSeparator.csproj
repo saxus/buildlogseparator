@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="ContentSorter.cs" />
     <Compile Include="DelegateCommand.cs" />
+    <Compile Include="LogParser.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

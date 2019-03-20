@@ -129,39 +129,9 @@ Alt + F4 - Exit";
         {
             this.Filename = filename;
 
-            var list = new List<Region>();
-
-            var currentRegion = "main";
-            var sb = new StringBuilder();
-
             var lines = File.ReadAllLines(filename);
 
-            foreach (var line in lines)
-            {
-                if (line.Length > 30)
-                {
-                    var t = line.Substring(29);
-                    if (t.StartsWith("======== ") && t.EndsWith(" logs"))
-                    {
-                        Swap();
-
-                        currentRegion = t.Substring(9, t.Length - 9 - 5);                       
-                        sb.Clear();
-                    }
-                }
-
-                sb.AppendLine(line);
-            }
-
-            Swap();
-
-            Regions = list;
-
-            void Swap()
-            {
-                var region = new Region(currentRegion, sb.ToString());
-                list.Add(region);
-            }
+            this.Regions = LogParser.ExplodeToRegions(lines);
         }
 
 
